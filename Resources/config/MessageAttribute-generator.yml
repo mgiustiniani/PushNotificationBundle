@@ -1,0 +1,33 @@
+generator: admingenerator.generator.doctrine
+params:
+  model: Manticora\PushNotificationBundle\Entity\MessageAttribute
+  namespace_prefix: Manticora
+  bundle_name: PushNotificationBundle
+  fields: ~
+
+builders:
+  list:
+    params:
+      title: List for PushNotificationBundle
+      display: ~
+      actions:
+        new: ~
+      object_actions:
+        edit: ~
+        delete: ~
+  filters:
+    params:
+      display: ~
+  new:
+    params:
+      title: New object for PushNotificationBundle
+      display: ~
+      actions:
+        list: ~
+  edit:
+    params:
+      title: You're editing the object 
+      display: ~
+      actions:
+        list: ~
+  delete: ~

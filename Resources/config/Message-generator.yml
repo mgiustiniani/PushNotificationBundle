@@ -1,0 +1,40 @@
+generator: admingenerator.generator.doctrine
+params:
+  model: Manticora\PushNotificationBundle\Entity\Message
+  namespace_prefix: Manticora
+  bundle_name: PushNotificationBundle
+  fields: 
+    attributes:
+      formType: collection
+      addFormOptions:
+          type: \Manticora\PushNotificationBundle\Form\MessageAttributeType
+          by_reference: false
+
+builders:
+  list:
+    params:
+      title: Push Manager
+      display: [enable, progress,  type, description, active]
+      actions:
+        new: ~
+      object_actions:
+        send: 
+          route: push_send
+        edit: ~
+        delete: ~
+  filters:
+    params:
+      display: ~
+  new:
+    params:
+      title: Nuovo Messaggio
+      display: [description, type, cronstring, enable, push_all, active, start_time, stop_time, attributes, clients]
+      actions:
+        list: ~
+  edit:
+    params:
+      title: Modifica  {{ Message.description }}
+      display: [description, type, cronstring, enable, push_all, active, start_time, stop_time, attributes, clients]
+      actions:
+        list: ~
+  delete: ~

@@ -1,0 +1,6 @@
+{ 
+{% for attribute in entity.attributes %}
+	"{{ attribute.chiave }}": {{ attribute.valore | raw }}{% if not loop.last %},{% endif %}
+	
+{% endfor %}
+}

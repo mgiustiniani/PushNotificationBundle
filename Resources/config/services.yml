@@ -1,0 +1,43 @@
+parameters:
+     push_notification.ios.cert: 
+     push_notification.ios.sound: 
+     push_notification.ios.badge: 
+     push_notification.ios.passphrase:
+     push_notification.ios.env:
+     push_notification.android.api_key:
+     push_notification.activelistener.class: Manticora\PushNotificationBundle\Listener\ActiveListener
+     push_notification.cronlistener.class: Manticora\PushNotificationBundle\Listener\messageSaveListener
+     push_notification.manager.class: Manticora\PushNotificationBundle\PushNotificationManager
+     push_notification.ios.class: Manticora\PushNotificationBundle\driver\IosPushNotification
+     push_notification.android.class: Manticora\PushNotificationBundle\driver\AndroidPushNotification
+     push_notification.blackberry.class: Manticora\PushNotificationBundle\driver\BlackBerryPushNotification
+     push_notification.blackberry.appid:   
+     push_notification.blackberry.password: 
+     push_notification.blackberry.env:
+     push_notification.blackberry.code: 
+
+services:
+     push_notification.manager:
+         class: %push_notification.manager.class%
+     push_notification.ios:
+         class: %push_notification.ios.class%
+         arguments: [%push_notification.ios.cert%, %push_notification.ios.passphrase%, %push_notification.ios.env%]
+     push_notification.android:
+         class: %push_notification.android.class%
+         arguments: [%push_notification.android.api_key%]
+     push_notification.blackberry:
+         class: %push_notification.blackberry.class%
+         arguments: [%push_notification.blackberry.appid%,%push_notification.blackberry.password%]
+     push_notification_preupdate:
+         class: %push_notification.activelistener.class%
+         tags:
+            - { name: doctrine.event_listener, event:  prePersist }
+            - { name: doctrine.event_listener, event:  preUpdate }
+     push_notification_listener2:
+         class: %push_notification.cronlistener.class%
+         tags:
+            - { name: doctrine.event_listener, event: prePersist }
+     push_notification_progressbar:
+         class: Manticora\PushNotificationBundle\Application\ProgressBarApplication
+         tags:
+            - { name: varspool_websocket.application, key: progress }

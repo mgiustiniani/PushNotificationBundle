@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Admin{% endblock %}</title>
+        {% block stylesheets %}
+        	<link rel="stylesheet" href="{{ asset('bundles/admingeneratoractiveadmintheme/css/all.css') }}" type="text/css" media="all" />
+      <style type="text/css">
+      
+      .actions .send {
+       height: 24px;
+  width: 24px;
+  display: block;
+  float: left;
+   background: url('/bundles/manticorapushnotification/images/icons/mobile-phone-cast.png') no-repeat !important;
+}
+
+
+      
+      </style>
+        {% endblock %}
+        {% block javascript_head %}
+	        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	        <script>window.jQuery || document.write('<script src="{{ asset("bundles/admingeneratorgenerator/javascripts/jquery-1.6.4.min.js") }}">\x3C/script>')</script>
+  
+      <script type="text/javascript">
+
+
+      var connection = new WebSocket('ws://192.168.0.147:8000/progress');
+      connection.onmessage = function (e) {
+    	   console.log('Server: %o',  e.data);
+var config = eval("("+e.data+")");
+console.log('Server: %o progress#progress_'+config.message, config);
+    	   $('progress#progress_'+config.message).attr('value', eval(config["progress"])+1);
+    	    };
+      
+$(document).ready(function () {
+	//socket.send('open');
+$('.actions .send').click(function(event){
+event.preventDefault();
+$.get($(this).attr('href')) ;
+	
+});
+	
+});
+
+
+      </script>
+        {% endblock %}
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body class="logged_in index">
+        <div id="wrapper">
+            <div id="header">
+                {% block header %}
+                    {% block logo %}
+                    <h1 id="site_title">
+                        Admin
+                    </h1>
+                    {% endblock %}
+                    {% block profile %}
+                    <div class="profile">
+                        <ul>
+                            <li>
+                                <a href="#">Welcome</a>
+                            </li>
+                            <li>
+                                <a class='logout' href="#">Log out will be connect to security</a>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endblock %}
+                    {% block menu %}
+                         {{ knp_menu_render('admin') }}
+                    {% endblock %}
+                {% endblock %}
+            </div>
+            <div id="content">
+                {% block flashes %}
+                    {% if app.session.hasFlash('success') %}
+                        <div class="notification_box success">
+                            {{ app.session.flash('success')|raw }}
+                        </div>
+                    {% endif %}
+                    {% if app.session.hasFlash('error') %}
+                        <div class="notification_box error">
+                            {{ app.session.flash('error')|raw }}
+                        </div>
+                    {% endif %}
+                {% endblock %}
+                
+                <div id="body_content">
+                {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        {% block javascripts %}
+        {% endblock %}
+    </body>
+</html>

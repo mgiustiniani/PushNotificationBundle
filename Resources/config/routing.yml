@@ -1,0 +1,17 @@
+PushNotificationBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: ManticoraPushNotificationBundle:Default:index }
+push_send2:
+    pattern:  /send/{type}
+    defaults: { _controller: "ManticoraPushNotificationBundle:PushNotification:push" }
+push_send:
+    pattern:  /pushsend/{pk}
+    defaults: { _controller: "ManticoraPushNotificationBundle:PushNotification:send" }
+push_register:
+    pattern:  /token/{type}/{token}
+    defaults: { _controller: "ManticoraPushNotificationBundle:PushNotification:token" }
+push_active:
+    pattern:  /check/{token}
+    defaults: { _controller: "ManticoraPushNotificationBundle:PushNotification:active" }
+
+

@@ -1,0 +1,6 @@
+{% extends_admingenerated "ManticoraPushNotificationBundle:MessageList:index.html.twig" %}
+{% block list_td_column_progress %}
+   <progress id="progress_{{ Message.id }}" value="1000" max="1000">
+   {{ Message.type.name }}
+</progress>
+{% endblock %}
