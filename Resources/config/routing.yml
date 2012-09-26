@@ -15,3 +15,6 @@ push_active:
     defaults: { _controller: "ManticoraPushNotificationBundle:PushNotification:active" }
 
 
+Admin_Backoffice:
+    resource: "@ManticoraPushNotificationBundle/Resources/config/routing/admin.yml"
+    prefix:   /admin

@@ -1,24 +1,24 @@
 ManticoraPushNotificationBundle_admin_mash_frog_push_notification_bundle_MessageGroup:
     resource: "@ManticoraPushNotificationBundle/Controller/MessageGroup/"
     type:     admingenerator
-    prefix:   /admin/message_group
+    prefix:   /message_group
 
 ManticoraPushNotificationBundle_admin_mash_frog_push_notification_bundle_MessageAttribute:
     resource: "@ManticoraPushNotificationBundle/Controller/MessageAttribute/"
     type:     admingenerator
-    prefix:   /admin/message_attribute
+    prefix:   /message_attribute
 
 ManticoraPushNotificationBundle_admin_mash_frog_push_notification_bundle_MessageType:
     resource: "@ManticoraPushNotificationBundle/Controller/MessageType/"
     type:     admingenerator
-    prefix:   /admin/message_type
+    prefix:   /message_type
 
 ManticoraPushNotificationBundle_admin_mash_frog_push_notification_bundle_Client:
     resource: "@ManticoraPushNotificationBundle/Controller/Client/"
     type:     admingenerator
-    prefix:   /admin/client
+    prefix:   /client
 
 ManticoraPushNotificationBundle_admin_mash_frog_push_notification_bundle_message:
     resource: "@ManticoraPushNotificationBundle/Controller/Message/"
     type:     admingenerator
-    prefix:   /admin/message
+    prefix:   /message
