@@ -177,8 +177,10 @@ class PushNotificationController extends Controller {
 				
 		}
 				$response = $push_android->send();
-		$push_ios->send();
-		$push_blackberry->send();
+				
+		if (count($ios_clients) > 0) $push_ios->send();
+		if (count($blackberry_clients) > 0)  $push_blackberry->send();
+		if (count($android_clients) > 0)
 		$response = $push_android->send();
 		$removeds = $response['remove'];
 		$addeds = $response['add'];
