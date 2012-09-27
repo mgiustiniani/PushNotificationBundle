@@ -3,16 +3,22 @@ namespace Manticora\PushNotificationBundle\driver;
 class BlackBerryPushNotification implements abstractPushNotification {
 
 	protected $pap;
+	protected $alert;
+	protected $token = array();
 
 	public function __construct($appid, $password) {
 
 		$this->pap = new \BlackBerryPap($appid, $password);
 
 	}
-	public function send($alert, $device_token = 'push_all') {
+	public function send() {
 
-		$message = new \BlackBerryMessage($alert, null, '+5 seconds');
-		$message->addTo($device_token);
+		$message = new \BlackBerryMessage($this->alert, null, '+5 seconds');
+		
+		foreach ($this->token as $token)  {
+			
+			$message->addTo($token);
+		}
 
 		$response = $this->pap->push($message);
 		if ($response->isError()) {
@@ -27,7 +33,7 @@ class BlackBerryPushNotification implements abstractPushNotification {
 
 	}
 	public function addToken($token) {
-		// TODO: Auto-generated method stub
+		$this->token[] = $token;
 
 	}
 	public function addData($key, $value) {
@@ -35,7 +41,9 @@ class BlackBerryPushNotification implements abstractPushNotification {
 
 	}
 	public function addMessage(Message $message) {
-		// TODO: Auto-generated method stub
+		$values = $message->getAttributes()->toArray();
+		if(isset($values['body']))
+		$this->alert = $values['body'];
 
 	}
 

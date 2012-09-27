@@ -111,7 +111,7 @@ class PushNotificationController extends Controller {
 	
 	protected function progress($pk, $i) {
 		
-		$client  =  new \Wrench\Client("ws://192.168.0.147:8000/progress","http://localhost");
+		$client  =  new \Wrench\Client("ws://192.168.0.147:8001/progress","http://localhost");
 		$client->connect();
 		$message = array(
 				"type" => "progress",
@@ -119,7 +119,7 @@ class PushNotificationController extends Controller {
 				"progress"=>$i
 		);
 		$client->sendData(json_encode($message));
-		usleep(1000);
+		usleep(10);
 		
 		$client->sendData("", 'close');
 		$client->disconnect();
