@@ -162,11 +162,8 @@ class PushNotificationController extends Controller {
 		$android_clients =$em->getRepository('ManticoraPushNotificationBundle:Client')->findByType("android");
 		$ios_clients =$em->getRepository('ManticoraPushNotificationBundle:Client')->findByType("ios");
 		
-		echo "Count ".$count.PHP_EOL;
 		$count = $count + count($android_clients);
-		echo "Count ".$count.PHP_EOL;
 		$count = $count + 2 * count($ios_clients);
-		echo "Count ".$count.PHP_EOL;
 		$i=0;
 		foreach ($clients as $client) {
 		//	$this->progress($pk, $i/$count*1000);
