@@ -1,6 +1,8 @@
 <?php
 namespace Manticora\PushNotificationBundle\Controller;
 
+use Symfony\Component\DependencyInjection\Compiler\RemoveAbstractDefinitionsPass;
+
 use Manticora\PushNotificationBundle\Entity\Client;
 
 use Symfony\Component\Finder\Finder;
@@ -156,7 +158,7 @@ class PushNotificationController extends Controller {
 		$push_blackberry = $this->get('push_notification.blackberry');
 		$push_ios->addMessage($message);
 		$push_android ->addMessage($message);
-		
+		$push_blackberry ->addMessage($message);
 		$count = 0;
 		
 		
@@ -180,6 +182,7 @@ class PushNotificationController extends Controller {
 		$response = $push_android->send();
 		$removeds = $response['remove'];
 		$addeds = $response['add'];
+		$removeds =array_merge($removeds, $push_ios->feedback());
 		foreach ($addeds as $add) {
 			$token  = new \Manticora\PushNotificationBundle\Entity\Client();
 			$token->setType('android');

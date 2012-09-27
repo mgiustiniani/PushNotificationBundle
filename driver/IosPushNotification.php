@@ -64,12 +64,11 @@ class IosPushNotification implements abstractPushNotification {
 				echo '<br>Caught exception: ', $e->getMessage(), "\n";
 			}
 		}
-		$this->feedback();
 		return $removed;
 	}
 
 	public function feedback() {
-
+$removed = array();
 		try {
 			$apns = new \Zend_Mobile_Push_Apns();
 			$apns->setCertificate($this->cert); // REPLACE WITH YOUR CERT
@@ -84,13 +83,17 @@ class IosPushNotification implements abstractPushNotification {
 
 			foreach ($feedbacks as $token => $feed) {
 				$date = new \DateTime('@' . $feed);
+				
+				$removed[] = $token;
 				echo 'token: ' . $token . '<br>data di disinstallazione: '
 						. $date->format('Y-m-d H:i:sP') . "<br>";
 
 			}
+			
 		} catch (\Exception $e) {
 			echo 'Caught exception: ', $e->getMessage(), "\n";
 		}
+		return $removed;
 	}
 	public function addMessage(Message $message) {
 		$values = $message->getAttributes()->toArray();

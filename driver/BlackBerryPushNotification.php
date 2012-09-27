@@ -1,14 +1,18 @@
 <?php
 namespace Manticora\PushNotificationBundle\driver;
+use Manticora\PushNotificationBundle\Entity\Message;
 class BlackBerryPushNotification implements abstractPushNotification {
 
 	protected $pap;
 	protected $alert;
 	protected $token = array();
 
-	public function __construct($appid, $password) {
+	public function __construct($appid, $password, $env, $cpid = null) {
 
 		$this->pap = new \BlackBerryPap($appid, $password);
+		$this->pap->setEnvironment($env);
+		if($env == 'prod')
+		 $this->pap->setContentProviderId($cpid);
 
 	}
 	public function send() {

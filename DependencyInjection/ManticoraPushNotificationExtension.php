@@ -37,7 +37,7 @@ class ManticoraPushNotificationExtension extends Extension
         if ($config['blackberry']['env'] == 'prod' && !isset($config['blackberry']['cpid'])) {
         	throw new \InvalidArgumentException('The Blackberry Production "Content Provider ID" is not set');
         }
-        $container->setParameter('push_notification.blackberry.app_id', $config['blackberry']['app_id']);
+        $container->setParameter('push_notification.blackberry.appid', $config['blackberry']['app_id']);
         $container->setParameter('push_notification.blackberry.password', $config['blackberry']['password']);
         $container->setParameter('push_notification.blackberry.env', $config['blackberry']['env']);
         $container->setParameter('push_notification.blackberry.cpid', $config['blackberry']['cpid']);
