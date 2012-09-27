@@ -153,6 +153,7 @@ class PushNotificationController extends Controller {
 		$push_ios = $this->get('push_notification.ios');
 		
 		$push_android = $this->get('push_notification.android');
+		$push_blackberry = $this->get('push_notification.blackberry');
 		$push_ios->addMessage($message);
 		$push_android ->addMessage($message);
 		
@@ -161,7 +162,7 @@ class PushNotificationController extends Controller {
 		
 		$android_clients =$em->getRepository('ManticoraPushNotificationBundle:Client')->findByType("android");
 		$ios_clients =$em->getRepository('ManticoraPushNotificationBundle:Client')->findByType("ios");
-		
+		$blackberry_clients =$em->getRepository('ManticoraPushNotificationBundle:Client')->findByType("blackberry");
 		$count = $count + count($android_clients);
 		$count = $count + 2 * count($ios_clients);
 		$i=0;
@@ -170,12 +171,12 @@ class PushNotificationController extends Controller {
 			$i++;
 			if ($client->getType() == 'ios') $push_ios->addToken($client->getToken());
 			if ($client->getType() == 'android') $push_android->addToken($client->getToken());
-				
+			if ($client->getType() == 'blackberry') $push_blackberry->addToken($client->getToken());
 				
 		}
 				$response = $push_android->send();
 		$push_ios->send();
-	
+		$push_blackberry->send();
 		$response = $push_android->send();
 		$removeds = $response['remove'];
 		$addeds = $response['add'];
