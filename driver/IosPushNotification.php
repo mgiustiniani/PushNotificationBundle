@@ -48,7 +48,7 @@ class IosPushNotification implements abstractPushNotification {
 
 				$apns = new \Zend_Mobile_Push_Apns();
 				$apns->setCertificate($this->cert); // REPLACE WITH YOUR CERT
-				if(is_string($this->passphrase));
+				if(is_string($this->passphrase))
 					$apns->setCertificatePassphrase($this->passphrase);
 				$this->message->setToken($token); // REPLACE WITH A APNS TOKEN
 				$this->message->setId(time());
@@ -73,7 +73,7 @@ class IosPushNotification implements abstractPushNotification {
 		try {
 			$apns = new \Zend_Mobile_Push_Apns();
 			$apns->setCertificate($this->cert); // REPLACE WITH YOUR CERT
-			if(is_string($this->passphrase));
+			if(is_string($this->passphrase))
 					$apns->setCertificatePassphrase($this->passphrase);
 			$apns->connect($this->env['feedback']);
 			$feedbacks = $apns->feedback();
