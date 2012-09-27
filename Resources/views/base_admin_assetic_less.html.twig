@@ -26,11 +26,9 @@
       <script type="text/javascript">
 
 
-      var connection = new WebSocket('ws://192.168.0.147:8000/progress');
+      var connection = new WebSocket('{{ push_ws_url }}/{{ push_ws_application }}');
       connection.onmessage = function (e) {
-    	   console.log('Server: %o',  e.data);
 var config = eval("("+e.data+")");
-console.log('Server: %o progress#progress_'+config.message, config);
     	   $('progress#progress_'+config.message).attr('value', eval(config["progress"])+1);
     	    };
       

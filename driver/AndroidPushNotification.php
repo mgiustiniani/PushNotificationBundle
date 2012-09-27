@@ -25,6 +25,7 @@ class AndroidPushNotification implements abstractPushNotification {
 echo "API KEY".$this->api_key;
 
 		$removed = array();
+		$added = array();
 		$gcm = new \Zend_Mobile_Push_Gcm();
 		$gcm->setApiKey($this->api_key);
 		try {
@@ -40,7 +41,8 @@ echo "API KEY".$this->api_key;
 				printf(
 						"<br>Response: %s has a new registration id of: %s\r\n",
 						$k, $v['registration_id']);
-				$removed[]=$v['registration_id'];
+				$removed[]=$k;
+				$added[]=$v['registration_id'];
 			}
 			if (isset($v['error'])) {
 				printf("<br>Response: %s had an error of: %s\r\n", $k,
@@ -57,7 +59,9 @@ echo "API KEY".$this->api_key;
 			}
 		
 		}
-		return $removed;
+		$result['add']=$added;
+		$result['remove']=$removed;
+		return $result;
 	}
 	protected function getBackOffTime($fails, \Zend_Http_Response $response) {
 		if ($retry = $response->getHeader('Retry-After')) {

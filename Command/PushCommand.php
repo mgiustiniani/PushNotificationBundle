@@ -137,13 +137,22 @@ class PushCommand extends ContainerAwareCommand{
 			$this->progress($this->message->getId(), $i+1);
 		}
 	//	$push_ios->send();
-		//$removeds = $push_android->send();
+		$response = $push_android->send();
+		$removeds = $response['remove'];
+		$addeds = $response['add'];
+		foreach ($addeds as $add) {
+			$token  = new \Manticora\PushNotificationBundle\Entity\Client();
+			$token->setType('android');
+			$token->setToken($add);
+			$em->persist($token);
+			$em->flush($token);
+		}
 		foreach ($removeds as $removed) {
-			$token = $android_clients =$em->getRepository('ManticoraPushNotificationBundle:Client')->findOneByToken($removed);
+			$token  =$em->getRepository('ManticoraPushNotificationBundle:Client')->findOneByToken($removed);
 			$em->remove($token);
 			$em->flush($token);
 		}
-		//$push_ios->send();
+		$push_ios->send();
 		
 	}
 	

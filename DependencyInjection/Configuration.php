@@ -21,13 +21,14 @@ class Configuration implements ConfigurationInterface {
 		$this->addIosSection($rootNode);
 		$this->addAndroidSection($rootNode);
 		$this->addBlackBerrySection($rootNode);
+		$this->addWebSocketSection($rootNode);
 		return $treeBuilder;
 	}
 
 	private function addIosSection(ArrayNodeDefinition $rootNode) {
 		$rootNode->
 			children()->
-				arrayNode('ios')->
+				arrayNode('ios')->addDefaultsIfNotSet()->
 					children()
 						->scalarNode('cert')->end()
 						->scalarNode('passphrase')->defaultNull()->end()
@@ -42,7 +43,7 @@ class Configuration implements ConfigurationInterface {
 	private function addAndroidSection(ArrayNodeDefinition $rootNode) {
 		$rootNode->
 			children()->
-				arrayNode('android')->
+				arrayNode('android')->addDefaultsIfNotSet()->
 					children()
 						->scalarNode('api_key')->end()
 					->end()
@@ -61,5 +62,17 @@ class Configuration implements ConfigurationInterface {
 					->end()
 				->end()
 			->end();
+	}
+	
+	private function addWebSocketSection(ArrayNodeDefinition $rootNode) {
+		$rootNode->
+		children()->
+		arrayNode('websocket')->addDefaultsIfNotSet()->
+		children()
+		->scalarNode('url')->defaultNull()->end()
+		->scalarNode('application')->defaultNull()->end()
+		->end()
+		->end()
+		->end();
 	}
 }

@@ -46,7 +46,8 @@ class ManticoraPushNotificationExtension extends Extension
         $container->setParameter('push_notification.ios.env', $config['ios']['env']);
         $container->setParameter('push_notification.ios.passphrase', $config['ios']['passphrase']);
         $container->setParameter('push_notification.android.api_key', $config['android']['api_key']);
-        
+        $container->setParameter('push_notification.ws.url', $config['websocket']['url']);
+        $container->setParameter('push_notification.ws.application', $config['websocket']['application']);
      
     }
 }

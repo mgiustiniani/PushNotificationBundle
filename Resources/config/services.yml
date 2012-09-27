@@ -15,9 +15,14 @@ parameters:
      push_notification.blackberry.password: 
      push_notification.blackberry.env:
      push_notification.blackberry.code: 
+     push_notification.twig.extension: Manticora\PushNotificationBundle\Twig\Config
+     push_notification.ws.url: 
+     push_notification.ws.application: 
 
 services:
      push_notification.manager:
+         class: %push_notification.manager.class%
+     push_notification.progressclient:
          class: %push_notification.manager.class%
      push_notification.ios:
          class: %push_notification.ios.class%
@@ -41,3 +46,8 @@ services:
          class: Manticora\PushNotificationBundle\Application\ProgressBarApplication
          tags:
             - { name: varspool_websocket.application, key: progress }
+     twig.extension.pushnotification:
+         class: %push_notification.twig.extension%
+         arguments: [%push_notification.ws.url%, %push_notification.ws.application% ]
+         tags:
+             - { name: twig.extension }

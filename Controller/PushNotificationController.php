@@ -101,6 +101,8 @@ class PushNotificationController extends Controller {
         }
         $push = $this->get('push_notification.android');
         $push->send( $md5, $android);
+        
+		
       //  $push2= $this->get('push_notification.ios');
        // $push2->feedback();
 
@@ -108,7 +110,8 @@ class PushNotificationController extends Controller {
 	}
 	
 	protected function progress($pk, $i) {
-		$client  =  new \Wrench\Client("ws://192.168.0.147:8000/progress","http://generali");
+		
+		$client  =  new \Wrench\Client("ws://192.168.0.147:8000/progress","http://localhost");
 		$client->connect();
 		$message = array(
 				"type" => "progress",
@@ -173,9 +176,24 @@ class PushNotificationController extends Controller {
 				
 				
 		}
-		$push_android->send();
+				$response = $push_android->send();
 		$push_ios->send();
-		 
+	
+		$response = $push_android->send();
+		$removeds = $response['remove'];
+		$addeds = $response['add'];
+		foreach ($addeds as $add) {
+			$token  = new \Manticora\PushNotificationBundle\Entity\Client();
+			$token->setType('android');
+			$token->setToken($add);
+			$em->persist($token);
+			$em->flush($token);
+		}
+		foreach ($removeds as $removed) {
+			$token  =$em->getRepository('ManticoraPushNotificationBundle:Client')->findOneByToken($removed);
+			$em->remove($token);
+			$em->flush($token);
+		}
 	
 	
 		return new Response("Fine Invio");
