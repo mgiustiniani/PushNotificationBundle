@@ -99,7 +99,10 @@ class Message
 	 */
 	public function prePersist(){
 		foreach ($this->template->getAttributes() as $attribute) {
-			$this->addMessageAttribute(clone $attribute);
+			$attr = clone $attribute;
+		//	print_r($attr);
+		$attr->setMessage($this);
+			$this->addMessageAttribute( $attr);
 			
 		}
 	}

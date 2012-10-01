@@ -49,12 +49,16 @@ class MessageAttribute
     	return $this->valore;
     }
     
- /*   public function __clone()
+
+   public function __clone()
     {
+    	
     	// If the entity has an identity, proceed as normal.
     	if ($this->id) {
+    		$this->id = null;
+    		$this->message_template = null;
     	}
-    }*/
+    }
 
     /**
      * Get id
