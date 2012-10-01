@@ -5,10 +5,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
 /**
- * @ORM\Entity(repositoryClass="Manticora\PushNotificationBundle\Repository\MessageTypeRepository")
- * @ORM\Table(name="message_type")
+ * @ORM\Entity(repositoryClass="Manticora\PushNotificationBundle\Repository\MessageTemplateRepository")
+ * @ORM\Table(name="message_template")
  */
-class MessageType
+class MessageTemplate
 {
 
     /**
@@ -26,10 +26,22 @@ class MessageType
      * @ORM\Column(type="string", length=255)
      */
     protected $description;
+    /**
+     * @ORM\OneToMany(targetEntity="MessageAttribute", mappedBy="message",cascade={"persist", "remove"}, orphanRemoval=true, indexBy="chiave")
+     *
+     */
+    protected $attributes;
     
     
     
-
+    public function setAttributes(\Doctrine\Common\Collections\Collection $attributes)
+    {
+    	foreach ($attributes as $attribute){
+    		$attribute->setMessageTemplate($this);
+    	}
+    	 
+    	$this->attributes = $attributes;
+    }
 public function __toString() {
 	return $this->name .' - ' .$this->description;
 }

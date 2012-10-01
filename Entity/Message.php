@@ -58,14 +58,20 @@ class Message
     
     /**
      * @ORM\ManyToOne(targetEntity="MessageGroup")
-     * @ORM\JoinColumn(name="Group_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      */
     protected $group;
     /**
      * @ORM\ManyToOne(targetEntity="MessageType")
-     * @ORM\JoinColumn(name="Group_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      */
     protected $type;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="MessageTemplate")
+     * @ORM\JoinColumn(name="template_id", referencedColumnName="id")
+     */
+    protected $template;
     /**
      * @ORM\OneToMany(targetEntity="MessageAttribute", mappedBy="message",cascade={"persist", "remove"}, orphanRemoval=true, indexBy="chiave")
      *
@@ -86,6 +92,17 @@ class Message
     	$this->clients = new ArrayCollection();
     	
     }
+    
+	/**
+	 * @ORM\PrePersist()
+	 *
+	 */
+	public function prePersist(){
+		foreach ($this->template->getAttributes() as $attribute) {
+			$this->addMessageAttribute(clone $attribute);
+			
+		}
+	}
     
 
 
@@ -331,5 +348,25 @@ class Message
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set template
+     *
+     * @param Manticora\PushNotificationBundle\Entity\MessageTemplate $template
+     */
+    public function setTemplate(\Manticora\PushNotificationBundle\Entity\MessageTemplate $template)
+    {
+        $this->template = $template;
+    }
+
+    /**
+     * Get template
+     *
+     * @return Manticora\PushNotificationBundle\Entity\MessageTemplate 
+     */
+    public function getTemplate()
+    {
+        return $this->template;
     }
 }

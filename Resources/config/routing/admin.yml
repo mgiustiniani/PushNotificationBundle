@@ -1,3 +1,8 @@
+ManticoraPushNotificationBundle_admin_manticora_push_notification_bundle_MessageTemplate:
+    resource: "@ManticoraPushNotificationBundle/Controller/MessageTemplate/"
+    type:     admingenerator
+    prefix:   /manticora_push_notification_bundle/MessageTemplate
+
 ManticoraPushNotificationBundle_admin_mash_frog_push_notification_bundle_MessageGroup:
     resource: "@ManticoraPushNotificationBundle/Controller/MessageGroup/"
     type:     admingenerator

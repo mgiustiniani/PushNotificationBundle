@@ -157,7 +157,7 @@ class PushCommand extends ContainerAwareCommand{
 	}
 	
 	protected function progress($pk, $i) {
-		$client  =  new \Wrench\Client("ws://192.168.0.147:8000/progress","http://generali");
+		$client  =  $this->getContainer()->get('push_notification_websocketclient');//  new \Wrench\Client("ws://192.168.0.147:8000/progress","http://generali");
 		$client->connect();
 		$message = array(
 				"type" => "progress",

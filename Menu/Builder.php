@@ -24,8 +24,8 @@ class Builder   extends ContainerAware{
 	{
 		$menu = $this->factory->createItem('Push Manager', array('route' => 'Manticora_PushNotificationBundle_Message_list') );
 	
-		
-		
+		$menu->addChild('Messaggi', array('route' => 'Manticora_PushNotificationBundle_Message_list'));
+		$menu->addChild('Template Messaggi', array('route' => 'Manticora_PushNotificationBundle_MessageTemplate_list'));
 		$menu->addChild('Tipo Messaggi', array('route' => 'Manticora_PushNotificationBundle_MessageType_list'));
 		$menu->addChild('Clienti', array('route' => 'Manticora_PushNotificationBundle_Client_list'));
 		$menu->addChild('Gruppi', array('route' => 'Manticora_PushNotificationBundle_MessageGroup_list'));

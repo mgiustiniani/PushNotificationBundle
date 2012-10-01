@@ -28,7 +28,11 @@ class MessageAttribute
      */
     protected $valore;
     
-    
+    /**
+     * @ORM\ManyToOne(targetEntity="MessageTemplate", inversedBy="attributes")
+     * @ORM\JoinColumn(name="template_id", referencedColumnName="id")
+     */
+    protected $message_template;
     /**
      * @ORM\ManyToOne(targetEntity="Message", inversedBy="attributes")
      * @ORM\JoinColumn(name="message_id", referencedColumnName="id")
@@ -45,7 +49,12 @@ class MessageAttribute
     	return $this->valore;
     }
     
-
+ /*   public function __clone()
+    {
+    	// If the entity has an identity, proceed as normal.
+    	if ($this->id) {
+    	}
+    }*/
 
     /**
      * Get id
@@ -155,5 +164,25 @@ class MessageAttribute
     public function getValore()
     {
         return $this->valore;
+    }
+
+    /**
+     * Set message_template
+     *
+     * @param Manticora\PushNotificationBundle\Entity\MessageTemplate $messageTemplate
+     */
+    public function setMessageTemplate(\Manticora\PushNotificationBundle\Entity\MessageTemplate $messageTemplate)
+    {
+        $this->message_template = $messageTemplate;
+    }
+
+    /**
+     * Get message_template
+     *
+     * @return Manticora\PushNotificationBundle\Entity\MessageTemplate 
+     */
+    public function getMessageTemplate()
+    {
+        return $this->message_template;
     }
 }

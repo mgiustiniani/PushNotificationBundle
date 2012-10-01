@@ -2,9 +2,9 @@
 namespace Manticora\PushNotificationBundle\WebSocket;
 
 
-use Wrench\Client;
-class Client extends Client{
+use Wrench\Client as WrenchClient;
+class Client extends WrenchClient{
 		public function __construct($host, $path) {
-			parent::__construct($host.$path, 'http://localhost');
+			parent::__construct($host.'/'.$path, 'http://localhost');
 		}
 }

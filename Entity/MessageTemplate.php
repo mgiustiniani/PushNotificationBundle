@@ -1,13 +1,14 @@
 <?php
-use Doctrine\Common\Collections\ArrayCollection;
 
 namespace Manticora\PushNotificationBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="Manticora\PushNotificationBundle\Repository\MessageTemplateRepository")
  * @ORM\Table(name="message_template")
  */
-class MessageType
+class MessageTemplate
 {
 
     /**
@@ -26,14 +27,21 @@ class MessageType
      */
     protected $description;
     /**
-     * @ORM\OneToMany(targetEntity="MessageAttribute", mappedBy="message",cascade={"persist", "remove"}, orphanRemoval=true, indexBy="chiave")
+     * @ORM\OneToMany(targetEntity="MessageAttribute", mappedBy="message_template",cascade={"persist", "remove"}, orphanRemoval=true, indexBy="chiave")
      *
      */
     protected $attributes;
     
     
     
-
+    public function setAttributes(\Doctrine\Common\Collections\Collection $attributes)
+    {
+    	foreach ($attributes as $attribute){
+    		$attribute->setMessageTemplate($this);
+    	}
+    	 
+    	$this->attributes = $attributes;
+    }
 public function __toString() {
 	return $this->name .' - ' .$this->description;
 }
@@ -85,5 +93,29 @@ public function __toString() {
     public function getDescription()
     {
         return $this->description;
+    }
+    public function __construct()
+    {
+        $this->attributes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add attributes
+     *
+     * @param Manticora\PushNotificationBundle\Entity\MessageAttribute $attributes
+     */
+    public function addMessageAttribute(\Manticora\PushNotificationBundle\Entity\MessageAttribute $attributes)
+    {
+        $this->attributes[] = $attributes;
+    }
+
+    /**
+     * Get attributes
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
     }
 }
