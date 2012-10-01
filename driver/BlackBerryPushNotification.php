@@ -9,7 +9,7 @@ class BlackBerryPushNotification implements abstractPushNotification {
 
 	public function __construct($appid, $password, $env, $cpid = null) {
 
-		$this->pap = new \BlackBerryPap($appid, $password);
+		$this->pap = new \Zend_Mobile_Push_Pap($appid, $password);
 		$this->pap->setEnvironment($env);
 		if($env == 'prod')
 		 $this->pap->setContentProviderId($cpid);
@@ -17,14 +17,14 @@ class BlackBerryPushNotification implements abstractPushNotification {
 	}
 	public function send() {
 
-		$message = new \BlackBerryMessage($this->alert, null, '+5 seconds');
+		$message = new \Zend_Mobile_Push_Message_Pap($this->alert, null, '+5 seconds');
 		
 		foreach ($this->token as $token)  {
 			
 			$message->addTo($token);
 		}
 
-		$response = $this->pap->push($message);
+		$response = $this->pap->send($message);
 		if ($response->isError()) {
 			echo '<br><b> BlackBerry Push::Descrizione errore:</b> '
 					. $response->getErrorString();
