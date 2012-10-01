@@ -1,7 +1,7 @@
 <?php
-use Doctrine\Common\Collections\ArrayCollection;
-
 namespace Manticora\PushNotificationBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="Manticora\PushNotificationBundle\Repository\MessageAttributeRepository")
@@ -24,7 +24,7 @@ class MessageAttribute
     protected $chiave;
     
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true )
      */
     protected $valore;
     

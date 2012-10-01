@@ -42,6 +42,10 @@ services:
          class: %push_notification.cronlistener.class%
          tags:
             - { name: doctrine.event_listener, event: prePersist }
+     push_notification_websocketclient:
+         class: Manticora\PushNotificationBundle\WebSocket\Client
+         arguments: [%push_notification.ws.url%, %push_notification.ws.application% ]
+         
      push_notification_progressbar:
          class: Manticora\PushNotificationBundle\Application\ProgressBarApplication
          tags:
