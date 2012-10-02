@@ -65,8 +65,6 @@ class PushNotificationController extends Controller {
 	protected function progress($pk, $i) {
 		
 		$client  =  $this->get('push_notification_websocketclient');
-		
-		// new \Wrench\Client("ws://192.168.0.147:8000/progress","http://localhost");
 		$client->connect();
 		$message = array(
 				"type" => "progress",
