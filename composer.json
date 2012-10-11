@@ -1,35 +1,65 @@
 {
-    "name": "manticora/push-notification-bundle",
-    "minimum-stability": "dev",
-    "version": "1.0.0-BETA",
-    "description": "Push System Manager for sending mobile push",
-    "keywords": ["admin", "push", "mobile"],
-    "type": "symfony-bundle",
-    "homepage": "http://geekinside.it/",
-    "license": "GPL3",
-    "authors": [
+    "name":"manticora/push-notification-bundle",
+    "minimum-stability":"dev",
+    "version":"1.0.0-BETA",
+    "description":"Push System Manager for sending mobile push",
+    "keywords":[
+        "admin",
+        "push",
+        "mobile"
+    ],
+    "type":"symfony-bundle",
+    "homepage":"http://geekinside.it/",
+    "license":"GPL3",
+    "authors":[
         {
-            "name": "Mario GIUSTINIANI",
-            "email": "mariogiustiniani@gmail.com"
+            "name":"Mario GIUSTINIANI",
+            "email":"mariogiustiniani@gmail.com"
         }
     ],
-    "require": {
-        "symfony/symfony": "2.1.*",
-        "cedriclombardot/admingenerator-generator-bundle": "dev-master",
-    	"cedriclombardot/admingenerator-activeadmintheme-bundle": "dev-master",
-    	"varspool/websocket-bundle": "dev-master",
-        "wrench/wrench": "dev-master",
-        "zendframework/zendframework1": "dev-release-1.11"
+    "require":{
+        "symfony/symfony":"2.1.*",
+        "cedriclombardot/admingenerator-generator-bundle":"dev-master",
+        "cedriclombardot/admingenerator-activeadmintheme-bundle":"dev-master",
+        "varspool/websocket-bundle":"dev-master",
+        "wrench/wrench":"dev-master",
+        "zendframework/zendframework1":"dev-release-1.11""zendframework/zendmobile":"dev-master"
     },
-    "require-dev": {
-        "doctrine/common": "2.3.*",
-        "doctrine/orm": "2.3.*",
-        "doctrine/dbal": "2.3.*"
+    "require-dev":{
+        "doctrine/common":"2.3.*",
+        "doctrine/orm":"2.3.*",
+        "doctrine/dbal":"2.3.*"
     },
-    "target-dir": "Manticora/PushNotificationBundle",
-    "autoload": {
-        "psr-0": {
-            "Manticora\\PushNotificationBundle": ""
+    "repositories":{
+        "deployment":{
+            "type":"package",
+            "package":{
+                "name":"zendframework/zendmobile",
+                "version":"dev-master",
+                "source":{
+                    "type":"git",
+                    "url":"git@github.com:mgiustiniani/Zend_Mobile.git",
+                    "reference":"develop"
+                },
+                "autoload":{
+                    "psr-0":{
+                        "Zend":"library/"
+                    }
+                },
+                "include-path":[
+                    "library/"
+                ],
+                "config":{
+                    "bin-dir":"bin"
+                },
+                
+            }
+        }
+    },
+    "target-dir":"Manticora/PushNotificationBundle",
+    "autoload":{
+        "psr-0":{
+            "Manticora\\PushNotificationBundle":""
         }
     }
 }
