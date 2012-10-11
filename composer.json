@@ -1,0 +1,37 @@
+{
+    "name": "mgiustiniani/push-notification-bundle",
+    "minimum-stability": "dev",
+    "version": "1.0.0-BETA",
+    "description": "Push System Manager for sending mobile push",
+    "keywords": ["admin", "push", "mobile"],
+    "type": "symfony-bundle",
+    "homepage": "http://geekinside.it/",
+    "license": "GPL3",
+    "authors": [
+        {
+            "name": "Mario GIUSTINIANI",
+            "email": "mariogiustiniani@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "2.1.*",
+        "cedriclombardot/twig-generator": "dev-master",
+        "knplabs/knp-menu-bundle": "dev-master",
+        "white-october/pagerfanta-bundle": "dev-master",
+        "twig/twig": ">= 1.9.0",
+        "twig/extensions": "dev-master",
+        "cedriclombardot/admingenerator-generator-bundle": "dev-master"
+	"cedriclombardot/admingenerator-activeadmintheme-bundle": "dev-master"
+    },
+    "require-dev": {
+        "doctrine/common": "2.3.*",
+        "doctrine/orm": "2.3.*",
+        "doctrine/dbal": "2.3.*"
+    },
+    "target-dir": "Manticora/PushNotificationBundle",
+    "autoload": {
+        "psr-0": {
+            "Manticora\\PushNotificationBundle": ""
+        }
+    }
+}
