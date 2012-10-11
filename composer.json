@@ -21,7 +21,9 @@
         "twig/twig": ">= 1.9.0",
         "twig/extensions": "dev-master",
         "cedriclombardot/admingenerator-generator-bundle": "dev-master",
-	"cedriclombardot/admingenerator-activeadmintheme-bundle": "dev-master"
+	"cedriclombardot/admingenerator-activeadmintheme-bundle": "dev-master",
+	 "varspool/websocket-bundle": "dev-master",
+        "wrench/wrench": "dev-master"
     },
     "require-dev": {
         "doctrine/common": "2.3.*",
