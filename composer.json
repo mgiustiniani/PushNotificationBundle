@@ -1,5 +1,5 @@
 {
-    "name": "mgiustiniani/push-notification-bundle",
+    "name": "manticora/push-notification-bundle",
     "minimum-stability": "dev",
     "version": "1.0.0-BETA",
     "description": "Push System Manager for sending mobile push",
