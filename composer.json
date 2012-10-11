@@ -24,7 +24,7 @@
         "varspool/websocket-bundle":"dev-master",
         "wrench/wrench":"dev-master",
         "zendframework/zendframework1":"dev-release-1.11",
-	"zendframework/zendmobile":"dev-master"
+     	"zendframework/zendmobile":"dev-master"
     },
     "require-dev":{
         "doctrine/common":"2.3.*",
@@ -52,7 +52,7 @@
                 ],
                 "config":{
                     "bin-dir":"bin"
-                },
+                }
                 
             }
         }
