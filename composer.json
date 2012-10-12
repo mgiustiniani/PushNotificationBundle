@@ -32,7 +32,7 @@
         "doctrine/dbal":"2.3.*"
     },
     "repositories":{
-        "deployment":{
+        "zendmobile":{
             "type":"package",
             "package":{
                 "name":"zendframework/zendmobile",
