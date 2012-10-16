@@ -3,16 +3,10 @@ namespace Manticora\PushNotificationBundle\Command;
 
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-
 use Symfony\Component\Console\Command\Command;
-
 use Symfony\Component\HttpFoundation\File\File;
-
 use Symfony\Component\Process\Process;
-
 use Wrench\Client;
-
-
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -38,33 +32,7 @@ class PushCommand extends ContainerAwareCommand{
 		$this->output = $output;
 		
 	
-	/*
-	$client->disconnect();
-		return;
 	
-		$process = new Process("crontab -l");
-		$process->run();
-	$data = explode("\n", $process->getOutput());
-	
-		foreach ($data as $key => $line )
-		{
-			
-	
-		
-	
-	}
-	$this->em = $this->getContainer()->get('doctrine')->getEntityManager();
-	$messages = $this->em->getRepository('ManticoraPushNotificationBundle:Message')->findAll();
-	foreach ($messages as $message) {
-		
-		$data[] = trim($message->getCronstring()).' /var/www/generali/app/console generali:send '.$message->getId();
-		
-		
-	}
-	
-	
-		}
-		return;*/
 		
 		
 		
@@ -126,7 +94,6 @@ class PushCommand extends ContainerAwareCommand{
 		echo "Count ".$count.PHP_EOL;
 		$i=0;
 		foreach ($clients as $client) {
-			//	$this->progress($pk, $i/$count*1000);
 			$i++;
 			if ($client->getType() == 'ios') $push_ios->addToken($client->getToken());
 			if ($client->getType() == 'android') $push_android->addToken($client->getToken());
@@ -136,16 +103,20 @@ class PushCommand extends ContainerAwareCommand{
 		for($i=0 ; $i<1000;$i++) {
 			$this->progress($this->message->getId(), $i+1);
 		}
-	//	$push_ios->send();
 		$response = $push_android->send();
 		$removeds = $response['remove'];
 		$addeds = $response['add'];
 		foreach ($addeds as $add) {
+			
+			
+			$token2  =$em->getRepository('ManticoraPushNotificationBundle:Client')->findOneByToken($add);
+			if (is_null($token2)) {
 			$token  = new \Manticora\PushNotificationBundle\Entity\Client();
 			$token->setType('android');
 			$token->setToken($add);
 			$em->persist($token);
 			$em->flush($token);
+			}
 		}
 		foreach ($removeds as $removed) {
 			$token  =$em->getRepository('ManticoraPushNotificationBundle:Client')->findOneByToken($removed);
