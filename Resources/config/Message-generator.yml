@@ -34,7 +34,7 @@ builders:
   edit:
     params:
       title: Modifica  {{ Message.description }}
-      display: [description, type, cronstring, enable, push_all, active, start_time, stop_time, attributes, clients]
+      display: [description, type, cronstring, enable, push_all, active, start_time, stop_time, attributes]
       actions:
         list: ~
   delete: ~

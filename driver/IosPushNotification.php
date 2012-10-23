@@ -52,7 +52,7 @@ class IosPushNotification implements abstractPushNotification {
 					$apns->setCertificatePassphrase($this->passphrase);
 				$this->message->setToken($token); // REPLACE WITH A APNS TOKEN
 				$this->message->setId(time());
-				$this->message->setBadge(2);
+				$this->message->setBadge(1);
 				$apns->connect($this->env['send']);
 				$apns->send($this->message);
 				$apns->close();
