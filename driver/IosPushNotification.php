@@ -10,12 +10,13 @@ class IosPushNotification implements abstractPushNotification {
 	protected $token = array();
 	protected $data;
 	protected $message;
-
-	protected $alert;
+    protected $alert;
+	protected $sound;
+	protected $badge;
+	
 	public function __construct($cert, $passphrase, $env = 'prod') {
 		$this->cert = $cert;
 		$this->passphrase = $passphrase;
-		echo $passphrase;
 		if ($env == 'prod') {
 			$this->env['send'] = \Zend_Mobile_Push_Apns::SERVER_PRODUCTION_URI;
 			$this->env['feedback'] = \Zend_Mobile_Push_Apns::SERVER_FEEDBACK_PRODUCTION_URI;
@@ -52,7 +53,6 @@ class IosPushNotification implements abstractPushNotification {
 					$apns->setCertificatePassphrase($this->passphrase);
 				$this->message->setToken($token); // REPLACE WITH A APNS TOKEN
 				$this->message->setId(time());
-				$this->message->setBadge(1);
 				$apns->connect($this->env['send']);
 				$apns->send($this->message);
 				$apns->close();
@@ -100,6 +100,16 @@ $removed = array();
 		/** dovrebbe fornire le chiavi dell'alert */
 		$alert_news = array_intersect_key($values, $this->alert);
 		$this->alert = array_merge($this->alert, $alert_news);
+		if (isset($values['sound'])) {
+			
+			$this->message->setSound((string)$values['sound']->getValore());
+	 		unset($values['sound']);
+		}
+		if (isset($values['badge'])) {
+				
+			$this->message->setBadge($values['badge']->getValore());
+			unset($values['badge']);
+		}
 		$customdata = array_diff_key($values, $this->alert);
 		$this->message
 				->setAlert((string) $this->alert['body'],
@@ -110,7 +120,7 @@ $removed = array();
 		
 		/** dovrebbe fornire le chiavi rimanenti */
 		foreach ($customdata as $key => $value) {
-			$this->message->addCustomData($key, $value);
+			$this->message->addCustomData($key, $value->getValore());
 		}
 
 	}

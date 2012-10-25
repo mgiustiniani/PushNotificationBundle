@@ -12,8 +12,7 @@ push_register:
     defaults: { _controller: "ManticoraPushNotificationBundle:PushNotification:token" }
 push_active:
     pattern:  /check/{token}
-    defaults: { _controller: "ManticoraPushNotificationBundle:PushNotification:active" }
-
+    defaults: { _controller: "ManticoraPushNotificationBundle:PushNotification:active", token: 'default' }
 
 Admin_Backoffice:
     resource: "@ManticoraPushNotificationBundle/Resources/config/routing/admin.yml"

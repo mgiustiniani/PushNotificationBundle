@@ -37,24 +37,25 @@ class AndroidPushNotification implements abstractPushNotification {
 		// handle all errors and registration_id's
 		foreach ($response->getResults() as $k => $v) {
 			if (isset($v['registration_id'])) {
-		//		printf(
-			//			"<br>Response: %s has a new registration id of: %s\r\n",
-				//		$k, $v['registration_id']);
+				printf(
+						"<br>Response: %s has a new registration id of: %s\r\n",
+						$k, $v['registration_id']);
 				$removed[]=$k;
 				$added[]=$v['registration_id'];
 			}
 			if (isset($v['error'])) {
-			//	printf("<br>Response: %s had an error of: %s\r\n", $k,
-				//		$v['error']);
+				printf("<br>Response: %s had an error of: %s\r\n", $k,
+						$v['error']);
 				// InvalidRegistration quando id è completamente sbagliato
 				// NotRegistered Applicazione disinstallata
 				if($v['error'] =='InvalidRegistration') $removed[]=$k;
 				if($v['error'] =='NotRegistered') $removed[]=$k;
+				if($v['error'] =='MismatchSenderId') $removed[]=$k;
 			}
 			if (isset($v['message_id'])) {
-			//	printf(
-				//		"<br>Response: %s was successfully sent the message, message id is: %s",
-					//	$k, $v['message_id']);
+				printf(
+						"<br>Response: %s was successfully sent the message, message id is: %s",
+						$k, $v['message_id']);
 			}
 		
 		}

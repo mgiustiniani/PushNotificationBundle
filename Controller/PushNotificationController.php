@@ -68,7 +68,7 @@ class PushNotificationController extends Controller {
 		$client->connect();
 		$message = array("type" => "progress", "message" => $pk, "progress" => $i);
 		$client->sendData(json_encode($message));
-		usleep(10);
+		usleep(1);
 
 		$client->sendData("", 'close');
 		$client->disconnect();
@@ -94,8 +94,8 @@ class PushNotificationController extends Controller {
 		if ($message->getType()->getName() != 'now')
 			return new Response("Can't send message now!");
 		//return new Response("Can't send message now!");
-		for ($i = 0; $i < 1000; $i++) {
-			$this->progress($pk, $i);
+		for ($i = 0; $i < 100; $i++) {
+			$this->progress($pk,($i+1)*10);
 		}
 
 		$push_ios = $this->get('push_notification.ios');
@@ -130,7 +130,6 @@ class PushNotificationController extends Controller {
 				$push_blackberry->addToken($client->getToken());
 
 		}
-		$response = $push_android->send();
 
 		if (count($ios_clients) > 0)
 			$push_ios->send();

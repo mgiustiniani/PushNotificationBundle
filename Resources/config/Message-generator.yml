@@ -22,6 +22,8 @@ builders:
           route: push_send
         edit: ~
         delete: ~
+      batch_actions:
+        delete: ~ # Pre coded action
   filters:
     params:
       display: ~
