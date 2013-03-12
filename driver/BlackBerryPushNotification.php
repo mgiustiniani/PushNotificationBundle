@@ -46,8 +46,8 @@ class BlackBerryPushNotification implements abstractPushNotification {
 	}
 	public function addMessage(Message $message) {
 		$values = $message->getAttributes()->toArray();
-		if(isset($values['body']))
-		$this->alert = $values['body'];
+		if(isset($values['blackberry']))
+		$this->alert = $values['blackberry'];
 
 	}
 

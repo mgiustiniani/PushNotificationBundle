@@ -21,6 +21,11 @@ class AndroidPushNotification implements abstractPushNotification {
 		$this->message->addData($key, $value);
 
 	}
+	
+	public function clearToken() {
+		$this->message->clearToken();
+	
+	}
 	public function send() {
 
 		$removed = array();
@@ -75,7 +80,7 @@ class AndroidPushNotification implements abstractPushNotification {
 	public function addMessage(Message $message) {
 		$values = $message->getAttributes()->toArray();
 		foreach ($values as $key => $value) {
-			$this->message->addData($key,(string) $value);
+			$this->message->addData($key,$value->getValore());
 		}
 
 	}
