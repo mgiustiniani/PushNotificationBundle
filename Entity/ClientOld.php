@@ -2,11 +2,11 @@
 namespace Manticora\PushNotificationBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 /**
- * @ORM\Entity(repositoryClass="Manticora\PushNotificationBundle\Repository\ClientRepository")
- * @ORM\Table(name="client", uniqueConstraints={@ORM\UniqueConstraint(name="token_unique",columns={"token"})}
+ * @ORM\Entity(repositoryClass="Manticora\PushNotificationBundle\Repository\ClientOldRepository")
+ * @ORM\Table(name="client_old", uniqueConstraints={@ORM\UniqueConstraint(name="token_unique",columns={"token"})}
  *      )
  */
-class Client
+class ClientOld
 {
 
     /**

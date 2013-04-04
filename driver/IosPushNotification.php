@@ -50,23 +50,13 @@ class IosPushNotification implements abstractPushNotification {
 		$i = 0;
 		ini_set("default_socket_timeout", 7200);
 
-		$output = new ConsoleOutput();
-		$style = new OutputFormatterStyle('red', 'yellow',
-				array('bold', 'blink'));
-		$output->getFormatter()->setStyle('fire', $style);
-		$output
-				->writeln(
-						"<fire>socket timeout: "
-								. ini_get('default_socket_timeout') . "</fire>");
+		
 		$apns = new \Zend_Mobile_Push_Apns();
 		
 		
 		foreach ($this->token as $token) {
 			try {
-				$output
-						->writeln(
-								"<info>Client number: " . $i++ . " - " . $token
-										. "</info>");
+			
 
 				$apns->setCertificate($this->cert); // REPLACE WITH YOUR CERT
 				if (is_string($this->passphrase))
@@ -97,10 +87,8 @@ class IosPushNotification implements abstractPushNotification {
 				$apns->setCertificatePassphrase($this->passphrase);
 			$apns->connect($this->env['feedback']);
 			$feedbacks = $apns->feedback();
-			print_r($feedbacks);
-
-			$apns->close();
-			echo '<br>tokens<br>';
+			
+		
 
 			foreach ($feedbacks as $token => $feed) {
 				$date = new \DateTime('@' . $feed);
@@ -110,6 +98,8 @@ class IosPushNotification implements abstractPushNotification {
 						. $date->format('Y-m-d H:i:sP') . "<br>";
 
 			}
+
+			$apns->close();
 
 		} catch (\Exception $e) {
 			echo 'Caught exception: ', $e->getMessage(), "\n";
@@ -142,6 +132,8 @@ class IosPushNotification implements abstractPushNotification {
 
 		/** dovrebbe fornire le chiavi rimanenti */
 		foreach ($customdata as $key => $value) {
+			echo $key.array_search($key, array('blackberry', 'payload','type'));
+			if(!in_array($key, array('blackberry', 'payload','type')))
 			$this->message->addCustomData($key, $value->getValore());
 		}
 

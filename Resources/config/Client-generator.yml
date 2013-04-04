@@ -21,13 +21,13 @@ builders:
   new:
     params:
       title: New object for PushNotificationBundle
-      display: [type, token]
+      display: [type, token, description]
       actions:
         list: ~
   edit:
     params:
       title: You're editing the object 
-      display: [type, token]
+      display: [type, token, description]
       actions:
         list: ~
   delete: ~

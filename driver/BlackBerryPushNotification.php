@@ -16,7 +16,7 @@ class BlackBerryPushNotification implements abstractPushNotification {
 
 	}
 	public function send() {
-
+if (!$this->alert) return;
 		$message = new \Zend_Mobile_Push_Message_Pap($this->alert, null, '+5 seconds');
 		
 		foreach ($this->token as $token)  {

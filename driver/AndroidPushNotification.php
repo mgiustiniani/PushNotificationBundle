@@ -1,30 +1,38 @@
 <?php
 namespace Manticora\PushNotificationBundle\driver;
+
 use Manticora\PushNotificationBundle\Entity\Message;
 
 class AndroidPushNotification implements abstractPushNotification {
 
 	protected $api_key;
 	protected $message;
+	protected $tokens = array();
+	protected $progress_id;
 
 	public function __construct($api_key) {
 		$this->api_key = $api_key;
 		$this->message = new \Zend_Mobile_Push_Message_Gcm();
-
+		$this->progress_id = 0;
 	}
 
 	public function addToken($token) {
-		$this->message->addToken($token);
+		//$this->message->addToken($token);
+
+		$this->tokens[$this->progress_id][] = $token;
+		if ((count($this->tokens[$this->progress_id]) % 300) == 0)
+			$this->progress_id++;
+		
 
 	}
 	public function addData($key, $value) {
 		$this->message->addData($key, $value);
 
 	}
-	
+
 	public function clearToken() {
 		$this->message->clearToken();
-	
+
 	}
 	public function send() {
 
@@ -32,40 +40,50 @@ class AndroidPushNotification implements abstractPushNotification {
 		$added = array();
 		$gcm = new \Zend_Mobile_Push_Gcm();
 		$gcm->setApiKey($this->api_key);
+		foreach ($this->tokens as $key => $tokens) {
+			$this->message->setToken($tokens);
 		try {
-			$response = $gcm->send($this->message);
+			
+
+				
+				$response = $gcm->send($this->message);
+				
+				
 		} catch (\Zend_Mobile_Push_Exception $e) {
 			// exceptions require action or implementation of exponential backoff.
 			die($e->getMessage());
 		}
 
 		// handle all errors and registration_id's
-		foreach ($response->getResults() as $k => $v) {
-			if (isset($v['registration_id'])) {
-				printf(
-						"<br>Response: %s has a new registration id of: %s\r\n",
-						$k, $v['registration_id']);
-				$removed[]=$k;
-				$added[]=$v['registration_id'];
-			}
-			if (isset($v['error'])) {
-				printf("<br>Response: %s had an error of: %s\r\n", $k,
-						$v['error']);
-				// InvalidRegistration quando id è completamente sbagliato
-				// NotRegistered Applicazione disinstallata
-				if($v['error'] =='InvalidRegistration') $removed[]=$k;
-				if($v['error'] =='NotRegistered') $removed[]=$k;
-				if($v['error'] =='MismatchSenderId') $removed[]=$k;
-			}
-			if (isset($v['message_id'])) {
-				printf(
-						"<br>Response: %s was successfully sent the message, message id is: %s",
-						$k, $v['message_id']);
-			}
-		
+//		foreach ($responses as $response) {
+			foreach ($response->getResults() as $k => $v) {
+		//		var_dump($response->getResults());
+				if (isset($v['registration_id'])) {
+					printf("Response: %s has a new registration id of: %s\r\n", $k, $v['registration_id']);
+					$removed[] = $k;
+					$added[] = $v['registration_id'];
+				}
+				if (isset($v['error'])) {
+					printf("Response: %s had an error of: %s\r\n", $k, $v['error']);
+					// InvalidRegistration quando id è completamente sbagliato
+					// NotRegistered Applicazione disinstallata
+					if ($v['error'] == 'InvalidRegistration')
+						$removed[] = $k;
+					if ($v['error'] == 'NotRegistered')
+						$removed[] = $k;
+					if ($v['error'] == 'MismatchSenderId')
+						$removed[] = $k;
+				}
+				if (isset($v['message_id'])) {
+			//		printf("Response: %s was successfully sent the message, message id is: %s", $k, $v['message_id']);
+				}
+
+	//		}
 		}
-		$result['add']=$added;
-		$result['remove']=$removed;
+		$this->message->clearToken();
+		}
+		$result['add'] = $added;
+		$result['remove'] = $removed;
 		return $result;
 	}
 	protected function getBackOffTime($fails, \Zend_Http_Response $response) {
@@ -80,7 +98,7 @@ class AndroidPushNotification implements abstractPushNotification {
 	public function addMessage(Message $message) {
 		$values = $message->getAttributes()->toArray();
 		foreach ($values as $key => $value) {
-			$this->message->addData($key,$value->getValore());
+			$this->message->addData($key, $value->getValore());
 		}
 
 	}
