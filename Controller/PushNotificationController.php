@@ -79,8 +79,8 @@ class PushNotificationController extends Controller {
 	public function sendAction($pk) {
 		ignore_user_abort(true);
 		set_time_limit(0);
-		//	header("Content-Length: 0");
-		  //  header("Connection: close");
+		header("Content-Length: 0");
+		header("Connection: close");
 		flush();
 		session_write_close();
 
@@ -91,7 +91,7 @@ class PushNotificationController extends Controller {
 		if ($message->getType()->getName() != 'now')
 			return new Response("Can't send message now!");*/
 		//return new Response("Can't send message now!");
-		for ($i = 0; $i < 100; $i++) {
+		for ($i = 0; $i < 50; $i++) {
 			$this->progress($pk,($i+1)*10);
 		}
 
@@ -100,6 +100,9 @@ class PushNotificationController extends Controller {
 		//$push_manager->setOutput($this->output);
 		$push_manager->send($pk);
 
+		for ($i = 50; $i < 100; $i++) {
+			$this->progress($pk,($i+1)*10);
+		}
 		
 		return new Response("Fine Invio");
 	}

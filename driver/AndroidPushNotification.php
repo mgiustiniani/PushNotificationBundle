@@ -80,8 +80,9 @@ class AndroidPushNotification implements abstractPushNotification {
 
 	//		}
 		}
-		$this->message->clearToken();
+		
 		}
+		$this->message->clearToken();
 		$result['add'] = $added;
 		$result['remove'] = $removed;
 		return $result;

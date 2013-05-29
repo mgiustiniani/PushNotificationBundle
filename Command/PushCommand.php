@@ -65,7 +65,7 @@ class PushCommand extends ContainerAwareCommand {
 
 		$em = $this->getContainer()->get('doctrine')->getEntityManager();
 
-		for ($i = 0; $i < 100; $i++) {
+		for ($i = 0; $i < 50; $i++) {
 			$this->progress($this->pk,($i+1)*10);
 		}
 		
@@ -74,8 +74,10 @@ class PushCommand extends ContainerAwareCommand {
 		$push_manager = new PushManager($this->getContainer()->get('doctrine'), $this->getContainer());
 		$push_manager->setOutput($this->output);
 		$push_manager->send($this->pk);
-
-		die("fine");
+	for ($i = 50; $i < 100; $i++) {
+			$this->progress($this->pk,($i+1)*10);
+		}
+		die();
 		/**
 		 * Android Push Send
 		 */
@@ -85,7 +87,7 @@ class PushCommand extends ContainerAwareCommand {
 		$addeds = $response['add'];
 
 		$repos = $em->getRepository('ManticoraPushNotificationBundle:Client');
-		foreach ($removeds as $removed) {
+	/*	foreach ($removeds as $removed) {
 			try {
 
 				$this->output->writeln("<info>Delete'.$removed.</info>");
@@ -99,7 +101,7 @@ class PushCommand extends ContainerAwareCommand {
 								"<error>Invalid: " . $e->getMessage()
 										. "</error>");
 			}
-		}
+		}*/
 		}
 
 		$push_android->clearToken();
@@ -133,7 +135,7 @@ class PushCommand extends ContainerAwareCommand {
 		$client->connect();
 		$message = array("type" => "progress", "message" => $pk, "progress" => $i);
 		$client->sendData(json_encode($message));
-		usleep(1000);
+		usleep(6000);
 
 		$client->sendData("", 'close');
 		$client->disconnect();

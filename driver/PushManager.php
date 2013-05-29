@@ -66,7 +66,12 @@ class PushManager {
 		
 		}
 		
+
+		/**
+		 * Blackberry Push Send
+		 */
 		
+		if (count($blackberry_clients) > 0)			$push_blackberry->send();
 		
 		/**
 		 * Android Push Send
@@ -77,8 +82,8 @@ class PushManager {
 		$addeds = $response['add'];
 		
 		$repos = $this->em->getRepository('ManticoraPushNotificationBundle:Client');
-		echo PHP_EOL.'count: '.count($removeds).PHP_EOL;
-		foreach ($removeds as $removed) {
+	
+	/*	foreach ($removeds as $removed) {
 			try {
 		
 				$this->output->writeln("<info>Delete: ".$removed."</info>");
@@ -94,13 +99,10 @@ class PushManager {
 						"<error>Invalid: " . $e->getMessage()
 						. "</error>");
 			}
-		}
+		}*/
 		}
 		$push_android->clearToken();
 		
-		/**
-		 * Blackberry Push Send
-		*/
 		/**
 		 *  IOS PUSH SEND
 		*/
@@ -108,16 +110,13 @@ class PushManager {
 		var_dump($removeds);
 		$removeds = array_merge($removeds, $push_ios->feedback());
 		foreach ($removeds as $removed) {
-			$this->output->writeln("<info>Delete: ".$removed."</info>");
-
+				$this->output->writeln("<info>Delete: ".$removed."</info>");
 				$token = $repos->findOneByToken(trim($removed));
 				$this->output->writeln("<info>Find: ".$token."</info>");
 				$this->em->remove($token);
-
 				$this->em->flush($token);
 		}
 
-		if (count($blackberry_clients) > 0)			$push_blackberry->send();
 		
 		
 	}
