@@ -56,8 +56,8 @@ class IosPushNotification implements abstractPushNotification {
 		
 		foreach ($this->token as $token) {
 			try {
-			
-
+                            echo $this->env['send'].PHP_EOL;
+			echo $this->cert.' '.$token.PHP_EOL;
 				$apns->setCertificate($this->cert); // REPLACE WITH YOUR CERT
 				if (is_string($this->passphrase))
 					$apns->setCertificatePassphrase($this->passphrase);

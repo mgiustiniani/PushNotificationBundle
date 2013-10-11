@@ -66,7 +66,7 @@ class PushManager {
 		
 		}
 		
-
+$repos = $this->em->getRepository('ManticoraPushNotificationBundle:Client');
 		/**
 		 * Blackberry Push Send
 		 */
@@ -81,7 +81,6 @@ class PushManager {
 		$removeds = $response['remove'];
 		$addeds = $response['add'];
 		
-		$repos = $this->em->getRepository('ManticoraPushNotificationBundle:Client');
 	
 	/*	foreach ($removeds as $removed) {
 			try {
