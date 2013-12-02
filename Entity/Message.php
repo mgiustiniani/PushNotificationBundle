@@ -98,6 +98,7 @@ class Message
 	 *
 	 */
 	public function prePersist(){
+        if(is_object($this->template))
 		foreach ($this->template->getAttributes() as $attribute) {
 			$attr = clone $attribute;
 		//	print_r($attr);

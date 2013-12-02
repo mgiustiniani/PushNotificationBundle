@@ -1,33 +1,52 @@
 generator: admingenerator.generator.doctrine
 params:
-  model: Manticora\PushNotificationBundle\Entity\MessageType
-  namespace_prefix: Manticora
-  bundle_name: PushNotificationBundle
-  fields: ~
-
-builders:
-  list:
-    params:
-      title: List for PushNotificationBundle
-      display: ~
-      actions:
-        new: ~
-      object_actions:
-        edit: ~
+    model: Manticora\PushNotificationBundle\Entity\MessageType
+    namespace_prefix: Manticora
+    concurrency_lock: ~
+    bundle_name: PushNotificationBundle
+    pk_requirement: ~
+    fields: ~
+    object_actions:
         delete: ~
-  filters:
-    params:
-      display: ~
-  new:
-    params:
-      title: New object for PushNotificationBundle
-      display: [name, description]
-      actions:
-        list: ~
-  edit:
-    params:
-      title: You're editing the object "{{ MessageType.description }}"
-      display: [name, description]
-      actions:
-        list: ~
-  delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: List for PushNotificationBundle
+            display: ~
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                delete: ~
+    filters:
+        params:
+            display: ~
+    new:
+        params:
+            title: New object for PushNotificationBundle
+            display: ~
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "You're editing the object \"%object%\"|{ %object%: MessageType.title }|"
+            display: ~
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: MessageType.title }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~

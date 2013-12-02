@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilder;
 
 class MessageType extends AbstractType
 {
-    public function buildForm(FormBuilder $builder, array $options)
+    public function build(FormBuilder $builder, array $options)
     {
         $builder
             ->add('description')

@@ -19,6 +19,7 @@
     ],
     "require":{
         "cedriclombardot/admingenerator-generator-bundle":"2.3.*@dev",
+        "avocode/form-extensions-bundle": "dev-master",
         "varspool/websocket-bundle":"dev-master",
         "wrench/wrench":"dev-master",
         "zendframework/zendframework1":"dev-release-1.11",

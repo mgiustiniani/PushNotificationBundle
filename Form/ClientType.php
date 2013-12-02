@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilder;
 
 class ClientType extends AbstractType
 {
-    public function buildForm(FormBuilder $builder, array $options)
+    public function build(FormBuilder $builder, array $options)
     {
         $builder
             ->add('type')

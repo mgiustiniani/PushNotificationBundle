@@ -27,3 +27,5 @@ ManticoraPushNotificationBundle_admin_mash_frog_push_notification_bundle_message
     resource: "@ManticoraPushNotificationBundle/Controller/Message/"
     type:     admingenerator
     prefix:   /message
+
+

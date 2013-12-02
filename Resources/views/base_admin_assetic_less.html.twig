@@ -1,98 +1,26 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>{% block title %}Admin{% endblock %}</title>
-        {% block stylesheets %}
-        	<link rel="stylesheet" href="{{ asset('bundles/admingeneratoractiveadmintheme/css/all.css') }}" type="text/css" media="all" />
-      <style type="text/css">
-      
-      .actions .send {
-       height: 24px;
-  width: 24px;
-  display: block;
-  float: left;
-   background: url('/bundles/manticorapushnotification/images/icons/mobile-phone-cast.png') no-repeat !important;
-}
+{% extends "AdmingeneratorGeneratorBundle::base_admin_assetic_less.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}   {# remove this line if you're not extending another template #}
 
+    {% include 'AvocodeFormExtensionsBundle::stylesheets.html.twig' %}
+    {% if form is defined %}
+        {{ afe_form_stylesheet(form) }}
+    {% endif %}
+{% endblock %}
 
-      
-      </style>
+{% block javascripts %}
+    {{ parent() }}   {# remove this line if you're not extending another template #}
+
+    {% include 'AvocodeFormExtensionsBundle::javascripts.html.twig' %}
+    {% if form is defined %}
+        {{ afe_form_javascript(form) }}
+    {% endif %}
+{% endblock %}
+
+{% block navbar %}
+    {% embed 'AdmingeneratorGeneratorBundle::base_admin_navbar.html.twig' %}
+
+        {% block menu %}  {{ knp_menu_render('createAdminMenuBundle:Builder:navbarMenu') }}
         {% endblock %}
-        {% block javascript_head %}
-	        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-	        <script>window.jQuery || document.write('<script src="{{ asset("bundles/admingeneratorgenerator/javascripts/jquery-1.6.4.min.js") }}">\x3C/script>')</script>
-  
-      <script type="text/javascript">
-
-
-      var connection = new WebSocket('{{ push_ws_url }}/{{ push_ws_application }}');
-      connection.onmessage = function (e) {
-var config = eval("("+e.data+")");
-    	   $('progress#progress_'+config.message).attr('value', eval(config["progress"])+1);
-    	    };
-      
-$(document).ready(function () {
-	//socket.send('open');
-$('.actions .send').click(function(event){
-event.preventDefault();
-$.get($(this).attr('href')) ;
-	
-});
-	
-});
-
-
-      </script>
-        {% endblock %}
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body class="logged_in index">
-        <div id="wrapper">
-            <div id="header">
-                {% block header %}
-                    {% block logo %}
-                    <h1 id="site_title">
-                        Admin
-                    </h1>
-                    {% endblock %}
-                    {% block profile %}
-                    <div class="profile">
-                        <ul>
-                            <li>
-                                <a href="#">Welcome</a>
-                            </li>
-                            <li>
-                                <a class='logout' href="#">Log out will be connect to security</a>
-                            </li>
-                        </ul>
-                    </div>
-                    {% endblock %}
-                    {% block menu %}
-                         {{ knp_menu_render('admin') }}
-                    {% endblock %}
-                {% endblock %}
-            </div>
-            <div id="content">
-                {% block flashes %}
-                    {% if app.session.hasFlash('success') %}
-                        <div class="notification_box success">
-                            {{ app.session.flash('success')|raw }}
-                        </div>
-                    {% endif %}
-                    {% if app.session.hasFlash('error') %}
-                        <div class="notification_box error">
-                            {{ app.session.flash('error')|raw }}
-                        </div>
-                    {% endif %}
-                {% endblock %}
-                
-                <div id="body_content">
-                {% block body %}{% endblock %}
-                </div>
-            </div>
-        </div>
-        {% block javascripts %}
-        {% endblock %}
-    </body>
-</html>
+    {% endembed %}
+{% endblock navbar %}

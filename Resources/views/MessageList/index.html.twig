@@ -1,6 +1,42 @@
 {% extends_admingenerated "ManticoraPushNotificationBundle:MessageList:index.html.twig" %}
-{% block list_td_column_progress %}
-   <progress id="progress_{{ Message.id }}" value="1000" max="1000">
-   {{ Message.type.name }}
-</progress>
-{% endblock %}
+ {% block scripts_head %}
+     {{ parent() }}
+     <script type="text/javascript">
+
+
+         var connection = new WebSocket('{{ push_ws_url }}/{{ push_ws_application }}');
+         connection.onmessage = function (e) {
+             var config = eval("("+e.data+")");
+             $('progress#progress_'+config.message).attr('value', eval(config["progress"])+1);
+         };
+
+         $(document).ready(function () {
+             //socket.send('open');
+             $('.actions .send').click(function(event){
+                 event.preventDefault();
+                 $.get($(this).attr('href')) ;
+
+             });
+
+         });
+
+
+     </script>
+ {% endblock %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <style type="text/css">
+
+            .actions .send {
+                height: 24px;
+                width: 24px;
+                display: block;
+                float: left;
+                background: url('/bundles/manticorapushnotification/images/icons/mobile-phone-cast.png') no-repeat !important;
+            }
+
+
+
+        </style>
+    {% endblock %}
