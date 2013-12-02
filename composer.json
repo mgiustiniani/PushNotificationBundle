@@ -18,7 +18,7 @@
         }
     ],
     "require":{
-        "symfony/symfony":"2.1.*",
+        "symfony/symfony":"~2.1.*",
         "cedriclombardot/admingenerator-generator-bundle":"dev-master",
         "cedriclombardot/admingenerator-activeadmintheme-bundle":"dev-master",
         "varspool/websocket-bundle":"dev-master",
