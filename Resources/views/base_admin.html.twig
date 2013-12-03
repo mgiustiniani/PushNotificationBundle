@@ -1,4 +1,4 @@
-{% extends "AdmingeneratorGeneratorBundle::base_admin_assetic_less.html.twig" %}
+{% extends "AdmingeneratorGeneratorBundle::base_admin.html.twig" %}
 {% block stylesheets %}
     {{ parent() }}   {# remove this line if you're not extending another template #}
 
@@ -20,7 +20,7 @@
 {% block navbar %}
     {% embed 'AdmingeneratorGeneratorBundle::base_admin_navbar.html.twig' %}
 
-        {% block menu %}  {{ knp_menu_render('createAdminMenuBundle:Builder:navbarMenu') }}
+        {% block menu %}  {{ knp_menu_render('ManticoraPushNotificationBundle:Builder:navbarMenu') }}
         {% endblock %}
     {% endembed %}
 {% endblock navbar %}

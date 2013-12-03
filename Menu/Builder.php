@@ -1,21 +1,26 @@
 <?php
 namespace Manticora\PushNotificationBundle\Menu;
 
-use Knp\Menu\FactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+
+use Admingenerator\GeneratorBundle\Menu\AdmingeneratorMenuBuilder;
+
+use Knp\Menu\FactoryInterface;
 use Symfony\Component\Routing\Router;
-use Symfony\Component\DependencyInjection\ContainerAware;
-class Builder   extends ContainerAware{
-	private $factory;
-	
-	/**
-	 * @param \Knp\Menu\FactoryInterface $factory
-	 */
-	public function __construct(FactoryInterface $factory)
-	{
-		$this->factory = $factory;
-	}
-	
+class Builder   extends AdmingeneratorMenuBuilder{
+
+    public function navbarMenu(FactoryInterface $factory, array $options) {
+        // create root item
+        $menu = $factory->createItem('root');
+        // set id for root item, and class for nice twitter bootstrap style
+        $menu->setChildrenAttributes(array('id' => 'main_navigation', 'class' => 'nav'));
+
+
+        $push=$this->addDropdown($menu, 'Push Notification',true);
+
+        $this->createPushMenu($push);
+        return $menu;
+    }
 	/**
 	 * @param Request $request
 	 * @param Router $router
@@ -38,5 +43,9 @@ class Builder   extends ContainerAware{
 		
 	
 	}
+
+    public function createPushMenu($menu){
+        $this->addLinkRoute($menu,'Messaggi', 'Manticora_PushNotificationBundle_Message_list');
+    }
 
 }
