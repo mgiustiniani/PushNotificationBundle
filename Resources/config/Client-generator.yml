@@ -26,21 +26,21 @@ builders:
     new:
         params:
             title: New object for PushNotificationBundle
-            display: ~
+            display: [type, token, description]
             actions:
                 save: ~
                 list: ~
     edit:
         params:
-            title: "You're editing the object \"%object%\"|{ %object%: Client.title }|"
-            display: ~
+            title: "You're editing the object \"%object%\"|{ %object%: Client.description }|"
+            display: [type, token, description]
             actions:
                 save: ~
                 list: ~
     show:
         params:
-            title: "You're viewing the object \"%object%\"|{ %object%: Client.title }|"
-            display: ~
+            title: "You're viewing the object \"%object%\"|{ %object%: Client.description }|"
+            display: [type, token, description]
             actions:
                 list: ~
                 new: ~

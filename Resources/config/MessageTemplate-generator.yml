@@ -5,7 +5,18 @@ params:
     concurrency_lock: ~
     bundle_name: PushNotificationBundle
     pk_requirement: ~
-    fields: ~
+    fields:
+           attributes:
+             dbType: collection
+             formType: afe_collection_table
+             addFormOptions:
+                 allow_add:      true
+                 allow_delete:   true
+                 type: \Manticora\PushNotificationBundle\Form\MessageAttributeType
+                 by_reference: false
+                 options:
+                    label:          Add new item
+                    data_class:     Manticora\PushNotificationBundle\Entity\MessageAttribute
     object_actions:
         delete: ~
     batch_actions:
@@ -26,21 +37,21 @@ builders:
     new:
         params:
             title: New object for PushNotificationBundle
-            display: ~
+            display: [name, description, attributes]
             actions:
                 save: ~
                 list: ~
     edit:
         params:
-            title: "You're editing the object \"%object%\"|{ %object%: MessageTemplate.title }|"
-            display: ~
+            title: "You're editing the object \"%object%\"|{ %object%: MessageTemplate.description }|"
+            display: [name, description, attributes]
             actions:
                 save: ~
                 list: ~
     show:
         params:
-            title: "You're viewing the object \"%object%\"|{ %object%: MessageTemplate.title }|"
-            display: ~
+            title: "You're viewing the object \"%object%\"|{ %object%: MessageTemplate.description }|"
+            display: [name, description, attributes]
             actions:
                 list: ~
                 new: ~

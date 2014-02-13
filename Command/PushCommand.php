@@ -3,6 +3,8 @@ namespace Manticora\PushNotificationBundle\Command;
 
 use Manticora\PushNotificationBundle\driver\PushManager;
 
+use Manticora\PushNotificationBundle\Entity\Message;
+use Manticora\PushNotificationBundle\Entity\MessageAttribute;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\HttpFoundation\File\File;
@@ -36,10 +38,16 @@ class PushCommand extends ContainerAwareCommand {
 		$this->pk = $pk;
 		$this->output->writeln("<info>tipologia invio: </info>");
 		$this->em = $this->getContainer()->get('doctrine')->getEntityManager();
-		$this->message = $this->em
-				->getRepository('ManticoraPushNotificationBundle:Message')
-				->find($pk);
+		//$this->message = $this->em
+		//		->getRepository('ManticoraPushNotificationBundle:Message')
+		//		->find($pk);
 
+        $this->message = new Message();
+        $this->message->setEnable(true);
+        $messageattrib = new MessageAttribute();
+        $messageattrib->setChiave('title');
+        $messageattrib->setValore('messaggio inviato');
+        $this->message->addMessageAttribute($messageattrib);
 		if ($this->isValid())
 			$this->send();
 

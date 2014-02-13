@@ -7,10 +7,16 @@ params:
     pk_requirement: ~
     fields:
            attributes:
-             formType: collection
+             dbType: collection
+             formType: afe_collection_table
              addFormOptions:
+                 allow_add:      true
+                 allow_delete:   true
                  type: \Manticora\PushNotificationBundle\Form\MessageAttributeType
                  by_reference: false
+                 options:
+                    label:          Add new item
+                    data_class:     Manticora\PushNotificationBundle\Entity\MessageAttribute
     object_actions:
         delete: ~
     batch_actions:

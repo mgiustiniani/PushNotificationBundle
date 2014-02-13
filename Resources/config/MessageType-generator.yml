@@ -33,14 +33,14 @@ builders:
     edit:
         params:
             title: "You're editing the object \"%object%\"|{ %object%: MessageType.title }|"
-            display: ~
+            display: [name, description]
             actions:
                 save: ~
                 list: ~
     show:
         params:
             title: "You're viewing the object \"%object%\"|{ %object%: MessageType.title }|"
-            display: ~
+            display: [name, description]
             actions:
                 list: ~
                 new: ~

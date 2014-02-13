@@ -124,6 +124,13 @@ $repos = $this->em->getRepository('ManticoraPushNotificationBundle:Client');
 		->getRepository('ManticoraPushNotificationBundle:Message')
 		->find($id);
 		$this->setClients();
+
+        $this->message = new Message();
+        $this->message->setEnable(true);
+        $messageattrib = new MessageAttribute();
+        $messageattrib->setChiave('title');
+        $messageattrib->setValore('messaggio inviato');
+        $this->message->addMessageAttribute($messageattrib);
 		
 		
 		
