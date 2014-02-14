@@ -22,7 +22,7 @@
         "avocode/form-extensions-bundle": "dev-master",
         "varspool/websocket-bundle":"dev-master",
         "wrench/wrench":"dev-master",
-        "zendframework/zendframework1":"dev-release-1.11",
+        "zendframework/zendframework1": "1.12.*@dev",
      	"zendframework/zendmobile":"dev-master",
         "doctrine/doctrine-fixtures-bundle": "dev-master"
     },
