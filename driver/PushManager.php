@@ -1,7 +1,7 @@
 <?php
 namespace Manticora\PushNotificationBundle\driver;
 
-use Symfony\Bundle\DoctrineBundle\Registry;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 
 class PushManager {
 	
