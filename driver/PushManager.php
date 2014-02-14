@@ -2,6 +2,8 @@
 namespace Manticora\PushNotificationBundle\driver;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Manticora\PushNotificationBundle\Entity\Message;
+use Manticora\PushNotificationBundle\Entity\MessageAttribute;
 
 class PushManager {
 	
