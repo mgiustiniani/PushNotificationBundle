@@ -37,10 +37,10 @@ class PushManager {
 		
 		$push_android = $this->getContainer()->get('push_notification.android');
 		
-		$push_blackberry = $this->getContainer()
+	/*	$push_blackberry = $this->getContainer()
 		->get('push_notification.blackberry');
 		
-		$push_blackberry->addMessage($this->message);
+		$push_blackberry->addMessage($this->message);*/
 		$push_ios->addMessage($this->message);
 		$push_android->addMessage($this->message);
 		
@@ -63,8 +63,8 @@ class PushManager {
 			if ($client->getType() == 'android')
 				$push_android->addToken($client->getToken());
 		
-			if ($client->getType() == 'blackberry')
-				$push_blackberry->addToken($client->getToken());
+	/*		if ($client->getType() == 'blackberry')
+				$push_blackberry->addToken($client->getToken());*/
 		
 		}
 		
@@ -73,7 +73,7 @@ $repos = $this->em->getRepository('ManticoraPushNotificationBundle:Client');
 		 * Blackberry Push Send
 		 */
 		
-		if (count($blackberry_clients) > 0)			$push_blackberry->send();
+		//if (count($blackberry_clients) > 0)			$push_blackberry->send();
 		
 		/**
 		 * Android Push Send
