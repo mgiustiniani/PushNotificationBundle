@@ -30,9 +30,9 @@ services:
      push_notification.android:
          class: %push_notification.android.class%
          arguments: [%push_notification.android.api_key%]
-     push_notification.blackberry:
-         class: %push_notification.blackberry.class%
-         arguments: [%push_notification.blackberry.appid%,%push_notification.blackberry.password%, %push_notification.blackberry.env%, %push_notification.blackberry.cpid%]
+#     push_notification.blackberry:
+#         class: %push_notification.blackberry.class%
+#         arguments: [%push_notification.blackberry.appid%,%push_notification.blackberry.password%, %push_notification.blackberry.env%, %push_notification.blackberry.cpid%]
      push_notification_preupdate:
          class: %push_notification.activelistener.class%
          tags:
